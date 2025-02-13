@@ -16,7 +16,13 @@ function CreatePost() {
     const title=titleElement.current.value;
     const body=bodyElement.current.value;
     const reaction=reactionElement.current.value;
-    const hashtags=hashtagsElement.current.value.split(" ");
+    const hashtags=hashtagsElement.current.value.split(",");
+
+    uerIDElement.current.value=" ";
+    titleElement.current.value=" ";
+    bodyElement.current.value=" ";
+    reactionElement.current.value=" ";
+    hashtagsElement.current.value=" ";
     addPost(userId,title,body,reaction,hashtags);
   }
 

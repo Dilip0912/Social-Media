@@ -4,6 +4,9 @@
 .content{
   width: 100%;
 }
+.EmptyMsg{
+  margin: 100px;
+}
 
 .sidebar{
   height: 70rem;
@@ -21,3 +24,4 @@
 .tag-span{
   margin: 1px 3px;
 }
+
