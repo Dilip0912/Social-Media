@@ -7,25 +7,44 @@ export const postListContext = createContext({
 });
 
 const PostListReducer = (currentPostList, action) => {
-  let newPostList=currentPostList;
-  if(action.key==="Delete_Post"){
-    newPostList=currentPostList.filter(post=>post.id!==action.payload.postId);
+  let newPostList = currentPostList;
+  if (action.type === "Delete_Post") {
+    newPostList = currentPostList.filter(
+      (post) => post.id !== action.payload.postId
+    );
+  } else if (action.type === "Add_Post") {
+    newPostList = [action.payload, ...currentPostList];
   }
   return newPostList;
 };
 
 const PostListProvider = ({ children }) => {
-  const [postList, dispatchPostList] = useReducer(PostListReducer,Default_Post_List);
+  const [postList, dispatchPostList] = useReducer(
+    PostListReducer,
+    Default_Post_List
+  );
 
-  const addPost = () => {};
+  const addPost = (userId, title, body, reaction, hashtags) => {
+    dispatchPostList({
+      type: "Add_Post",
+      payload: {
+        id:Date.now(),
+        title: title,
+        body: body,
+        reactions: reaction,
+        userId: userId,
+        tags: hashtags,
+      },
+    });
+  };
 
   const deletePost = (postId) => {
     dispatchPostList({
-      key:"Delete_Post",
-      payload:{
+      type: "Delete_Post",
+      payload: {
         postId,
-      }
-    })
+      },
+    });
   };
 
   return (

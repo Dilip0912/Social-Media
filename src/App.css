@@ -9,6 +9,11 @@
   height: 70rem;
 }
 
+.create-post{
+  width: 75%;
+  margin: 25px;
+}
+
 .Post-card{
   margin: 20px 40px;
 }
