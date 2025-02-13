@@ -8,3 +8,11 @@
 .sidebar{
   height: 70rem;
 }
+
+.Post-card{
+  margin: 20px 40px;
+}
+
+.tag-span{
+  margin: 1px 3px;
+}
