@@ -1,5 +1,6 @@
 import { useContext, useEffect, useRef } from "react";
 import { postListContext } from "../store/PostListContext";
+import { useNavigate } from "react-router-dom";
 
 function CreatePost() {
   const uerIDElement = useRef();
@@ -9,6 +10,7 @@ function CreatePost() {
   const hashtagsElement = useRef();
 
   const { addPost } = useContext(postListContext);
+  const navigate=useNavigate();
 
   const handleOnPost = (event) => {
     event.preventDefault();
@@ -37,8 +39,9 @@ function CreatePost() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         addPost(data);
+        navigate("/")
       });
   };
 
