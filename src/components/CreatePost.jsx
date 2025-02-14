@@ -1,30 +1,46 @@
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { postListContext } from "../store/PostListContext";
 
 function CreatePost() {
-  const uerIDElement=useRef();
-  const titleElement=useRef();
-  const bodyElement=useRef();
-  const reactionElement=useRef();
-  const hashtagsElement=useRef();
+  const uerIDElement = useRef();
+  const titleElement = useRef();
+  const bodyElement = useRef();
+  const reactionElement = useRef();
+  const hashtagsElement = useRef();
 
-  const {addPost}=useContext(postListContext);
+  const { addPost } = useContext(postListContext);
 
-  const handleOnPost=(event)=>{
-    event.preventDefault()
-    const userId=uerIDElement.current.value;
-    const title=titleElement.current.value;
-    const body=bodyElement.current.value;
-    const reaction=reactionElement.current.value;
-    const hashtags=hashtagsElement.current.value.split(",");
+  const handleOnPost = (event) => {
+    event.preventDefault();
+    const userId = uerIDElement.current.value;
+    const title = titleElement.current.value;
+    const body = bodyElement.current.value;
+    const reaction = reactionElement.current.value;
+    const hashtags = hashtagsElement.current.value.split(",");
 
-    uerIDElement.current.value=" ";
-    titleElement.current.value=" ";
-    bodyElement.current.value=" ";
-    reactionElement.current.value=" ";
-    hashtagsElement.current.value=" ";
-    addPost(userId,title,body,reaction,hashtags);
-  }
+    // uerIDElement.current.value = " ";
+    // titleElement.current.value = " ";
+    // bodyElement.current.value = " ";
+    // reactionElement.current.value = " ";
+    // hashtagsElement.current.value = " ";
+
+    fetch("https://dummyjson.com/posts/add", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: title,
+        body: body,
+        reactions: reaction,
+        userId: 5,
+        tags: hashtags,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        addPost(data);
+      });
+  };
 
   return (
     <form className="create-post" onSubmit={handleOnPost}>
