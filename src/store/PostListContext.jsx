@@ -4,7 +4,6 @@ export const postListContext = createContext({
   postList: [],
   addPost: () => {},
   deletePost: () => {},
-  fetching:false,
 });
 
 const PostListReducer = (currentPostList, action) => {
@@ -42,6 +41,7 @@ const PostListProvider = ({ children }) => {
       },
     });
   };
+
   const addMyPosts=(MyPosts)=>{
     // console.log(MyPosts);
     dispatchPostList({
@@ -52,28 +52,17 @@ const PostListProvider = ({ children }) => {
     })
   }
 
-  const [fetching, setFetching] = useState(false);
+  // const [deletePostId, setDeletePostId] = useState();
+  // const deletePostId=[];
 
-  useEffect(() => {
-    setFetching(true);
-    const controller=new AbortController();
-    const signal=controller.signal;
-    fetch("https://dummyjson.com/posts",{signal})
-      .then((res) => res.json())
-      .then((data) => {
-        addMyPosts(data.posts);
-        setFetching(false);
-      });
+  // useEffect(() => {
+  //   setFetching(true);
 
-    // return () => {
-    //   console.log("Fetch Aborted")
-    //   controller.abort();
-    // };
-  }, []);
+  // }, []);
 
   return (
     <postListContext.Provider
-      value={{ postList, addPost, deletePost, fetching }}
+      value={{ postList, addPost, deletePost}}
     >
       {children}
     </postListContext.Provider>
